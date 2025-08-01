@@ -147,10 +147,11 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [("srv-captain--torrent-redis", 6379)],
+            "hosts": [("redis://:Bd&&969696@srv-captain--torrent-redis:6379/0")],
         },
     },
 }
+
 
 # Static files
 STATIC_URL = '/static/'
