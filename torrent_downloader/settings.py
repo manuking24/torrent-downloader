@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from urllib.parse import urlparse
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -117,8 +117,17 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Redis Configuration
-REDIS_URL = 'redis://localhost:6379/0'
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/0')
+parsed_url = urlparse(REDIS_URL)
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(parsed_url.hostname, parsed_url.port)],
+        },
+    },
+}
 
 # Celery Configuration
 CELERY_BROKER_URL = REDIS_URL
