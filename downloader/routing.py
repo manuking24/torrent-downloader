@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import re_path
 from . import consumers
 
 websocket_urlpatterns = [
-    path('ws/torrent/<uuid:torrent_id>/', consumers.TorrentProgressConsumer.as_asgi()),
+    re_path(r'^ws/torrent/(?P<torrent_id>[0-9a-f-]+)/$', consumers.TorrentProgressConsumer.as_asgi()),
 ]
