@@ -121,24 +121,13 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Get Redis URL from environment or default
-REDIS_URL = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379/0')
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://:Bd&&969696@srv-captain--torrent-redis:6379/0')
 
-# Parse the Redis URL for use in CHANNEL_LAYERS
-parsed_url = urlparse(REDIS_URL)
-redis_host = parsed_url.hostname
-redis_port = parsed_url.port
-redis_password = parsed_url.password
-
-# CHANNEL_LAYERS configuration for Django Channels
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [{
-                "address": (redis_host, redis_port),
-                **({"password": redis_password} if redis_password else {})
-            }],
+            "hosts": [REDIS_URL],  # MUST be a list of strings, not tuples
         },
     },
 }
