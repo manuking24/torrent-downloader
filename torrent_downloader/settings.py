@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-iyi$*=$dnib2ke&gcl8mmebsdch15*n*@k@=kt4b@+&4+cm9fs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['torrent-downloader.160.191.129.166.xip.io']
 
 
 # Application definition
