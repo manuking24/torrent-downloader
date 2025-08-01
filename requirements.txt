@@ -17,3 +17,4 @@ python-dotenv==1.0.0
 python-magic==0.4.27
 Pillow==10.0.1
 requests==2.32.3
+daphne==4.1.2
