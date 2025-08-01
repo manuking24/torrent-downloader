@@ -10,10 +10,6 @@ import os
 import zipfile
 import tempfile
 from pathlib import Path
-import traceback
-import logging
-
-logger = logging.getLogger(__name__)
 
 def index(request):
     torrents = TorrentDownload.objects.all()
@@ -34,8 +30,7 @@ def add_torrent(request):
             magnet_link=magnet_link
         )
         
-        # Comment out Celery task to isolate error:
-        # download_torrent_task.delay(str(torrent.id))
+        download_torrent_task.delay(str(torrent.id))
         
         return JsonResponse({
             'success': True,
@@ -44,7 +39,6 @@ def add_torrent(request):
         })
         
     except Exception as e:
-        logger.error(traceback.format_exc())
         return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt
